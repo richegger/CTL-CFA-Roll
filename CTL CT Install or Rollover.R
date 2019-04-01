@@ -31,9 +31,11 @@ data$old_CFA_loc1_trim <- str_sub(data$old_CFA_loc1, 1, 8)
 data$old_CFA_loc2_trim <- str_sub(data$old_CFA_loc2, 1, 8)
 
 #Create a flag indicating whether new CFA locations match old CFA locations
-data$CFA_loc1_match <- (data$new_CFA_loc1_trim == data$old_CFA_loc1_trim) | (data$new_CFA_loc1_trim == data$old_CFA_loc2_trim)
-data$CFA_loc2_match <- (data$new_CFA_loc2_trim == data$old_CFA_loc2_trim) | (data$new_CFA_loc2_trim == data$old_CFA_loc1_trim)
-data$CFA_loc_match <- data$CFA_loc1_match & data$CFA_loc2_match
+data$CFA_loc1_match_new <- (data$new_CFA_loc1_trim == data$old_CFA_loc1_trim) | (data$new_CFA_loc1_trim == data$old_CFA_loc2_trim)
+data$CFA_loc1_match_old <- (data$old_CFA_loc1_trim == data$new_CFA_loc1_trim) | (data$old_CFA_loc1_trim == data$new_CFA_loc2_trim)
+data$CFA_loc2_match_new <- (data$new_CFA_loc2_trim == data$old_CFA_loc2_trim) | (data$new_CFA_loc2_trim == data$old_CFA_loc1_trim)
+data$CFA_loc2_match_old <- (data$old_CFA_loc2_trim == data$new_CFA_loc1_trim) | (data$old_CFA_loc2_trim == data$new_CFA_loc2_trim)
+data$CFA_loc_match <- data$CFA_loc1_match_new & data$CFA_loc2_match_new & data$CFA_loc1_match_old & data$CFA_loc2_match_old
 
 #Modify strings to remove spaces, special characters
 data$new_address_short <- str_replace_all(data$NEW_ADDRESS, "[:space:]", "")
